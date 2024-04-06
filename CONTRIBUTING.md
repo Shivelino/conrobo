@@ -22,11 +22,27 @@
 
 使用git命令将源代码克隆至本地：
 
-```
-git clone [url]
+```bash
+git clone https://gitee.com/bitrm2020cv/conrobo
 ```
 
-选择构建对应的项目进行开发。
+使用CMake图形化界面点击左下角generate，选择你想要用的构建器（图中为VS2022，即windows+vs+msvc工具链）。如果构建报错说明没有装`OpenCV`，设置一下`OpenCV_DIR`即可，不懂的可以随时联系`shivelino@qq.com`
+
+![image-20240407010531271](./resources/contributing.assets/image-20240407010531271.png)
+
+构建完成后打开`build1/conrobo.sln`得到如图所示的项目
+
+![image-20240407010747583](./resources/contributing.assets/image-20240407010747583.png)
+
+右键`conrobo`文件夹中的项目，右键选择`生成`或者`设为启动项目`。`生成`的意思是编译这个项目，`设为启动项目`的意思是如果这个项目是可执行文件，那么设置这个项目作为启动的项目（可以理解为执行对应的`main`函数）。
+
+![image-20240407011023638](./resources/contributing.assets/image-20240407011023638.png)
+
+执行效果如下图所示
+
+![image-20240407011255114](./resources/contributing.assets/image-20240407011255114.png)
+
+**ATTENTION** : Linux与Mac暂未测试，如果有问题请在仓库提Issue。不过我用`Win+Ninja+Clang`编译没有出现问题，因此我认为出概率的问题不大。
 
 
 
@@ -39,4 +55,4 @@ git clone [url]
 - [x] 3rdparty include
 - [ ] sensor
   - [x] cam/video
-  - [ ] image
+  - [ ] image sequence
