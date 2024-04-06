@@ -49,7 +49,7 @@ endif()
 
 # 编译器选项
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-# todo
+    # todo
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_definitions(-Wno-error)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
@@ -92,7 +92,7 @@ option(PROJ_BUILD_APP "Whether to build the module: application" ON)
 option(PROJ_BUILD_TESTS "Whether to build the module: test" ON)
 option(PROJ_BUILD_BENCHS "Whether to build the module: benchmark" ON)
 option(PROJ_BUILD_FORMAT "Whether to build the format tool" ON)
-option(PROJ_BUILD_INSTALL "Generate the install target" OFF)  # todo: yaml-cpp will result INSTALL configure error
+option(PROJ_BUILD_INSTALL "Generate the install target" OFF) # todo: yaml-cpp will result INSTALL configure error
 option(PROJ_BUILD_SAMPLES "Whether to build the module: sample" ON) # sample option
 option(PROJ_BUILD_DOXYGEN "Whether to build the module: DocGenerate" ON) # doxygen编译开关
 
