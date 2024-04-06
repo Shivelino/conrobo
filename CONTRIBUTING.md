@@ -23,7 +23,7 @@
 使用git命令将源代码克隆至本地：
 
 ```bash
-git clone https://gitee.com/bitrm2020cv/conrobo
+git clone https://github.com/Shivelino/conrobo.git
 ```
 
 使用CMake图形化界面点击左下角generate，选择你想要用的构建器（图中为VS2022，即windows+vs+msvc工具链）。如果构建报错说明没有装`OpenCV`，设置一下`OpenCV_DIR`即可，不懂的可以随时联系`shivelino@qq.com`

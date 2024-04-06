@@ -5,7 +5,7 @@ set(CPACK_GENERATOR
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY 0)
 set(CPACK_INSTALL_CMAKE_PROJECTS "${CMAKE_BINARY_DIR}" "${PROJECT_NAME}" ALL .)
 
-set(CPACK_PROJECT_URL "https://gitee.com/bitrm2020cv/conrobo")
+set(CPACK_PROJECT_URL "https://github.com/Shivelino/conrobo")
 set(CPACK_PACKAGE_VENDOR "Conrobo Team")
 set(CPACK_PACKAGE_CONTACT "Shivelino <shivelino@qq.com>")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "conrobo")

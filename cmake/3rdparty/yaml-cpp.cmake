@@ -2,10 +2,8 @@ function(find_yamlcpp)
     message(STATUS "=================================================================")
     message(STATUS "Start finding third party: yaml-cpp.")
 
-    if(NOT POLICY CMP0077)
-        message(STATUS "Set CMP0077 OLD.")
-        cmake_policy(SET CMP0077 OLD)
-    endif()
+    message(STATUS "Set CMP0077 OLD.")
+    cmake_policy(SET CMP0077 OLD)
 
     # find in system
     find_package(yaml-cpp CONFIG QUIET)
