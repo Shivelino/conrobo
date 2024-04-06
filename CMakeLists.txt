@@ -49,19 +49,12 @@ endif()
 
 # 编译器选项
 if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    # todo
+# todo
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     add_definitions(-Wno-error)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     # todo
 endif()
-
-# # 预定义宏
-add_definitions(-DUNICODE -D_UNICODE)
-add_definitions(-DPROJ_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
-add_definitions(-DPROJ_LOG_DIR="${CMAKE_CURRENT_SOURCE_DIR}/log")
-add_definitions(-DPROJ_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data")
-add_definitions(-DPROJ_CONFIG_DIR="${CMAKE_CURRENT_SOURCE_DIR}/config")
 
 # # 框架路径
 set(PROJ_CMAKE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
@@ -78,33 +71,38 @@ set(PROJ_BUILD_DEPS_DIR ${PROJ_BUILD_DIR}/_deps) # FetchContent_Declare的工作
 set(PROJ_COMMON_INCLUDE_DIRS ${PROJ_INCLUDE_DIR} ${PROJ_DEPS_DIR})
 
 # 构建输出directory
-set(PROJ_OUT_DIR_DIFF_BUILD_TYPE
-    "$<$<CONFIG:Debug>:"
-    "${PROJ_OUT_DIR}/Debug"
-    ">"
-    "$<$<CONFIG:Release>:"
-    "${PROJ_OUT_DIR}/Release"
-    ">"
-    "$<$<CONFIG:RelWithDebInfo>:"
-    "${PROJ_OUT_DIR}/RelWithDebInfo"
-    ">"
-    "$<$<CONFIG:MinSizeRel>:"
-    "${PROJ_OUT_DIR}/MinSizeRel"
-    ">")
-string(REPLACE ";" "" PROJ_OUT_DIR_DIFF_BUILD_TYPE ${PROJ_OUT_DIR_DIFF_BUILD_TYPE})
+set(PROJ_OUT_DIR_DIFF_BUILD_TYPE "$<$<CONFIG:Debug>:${PROJ_OUT_DIR}/Debug>$<$<CONFIG:Release>:${PROJ_OUT_DIR}/Release>$<$<CONFIG:RelWithDebInfo>:${PROJ_OUT_DIR}/RelWithDebInfo>$<$<CONFIG:MinSizeRel>:${PROJ_OUT_DIR}/MinSizeRel>")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJ_OUT_DIR_DIFF_BUILD_TYPE}) # 可执行Target文件的输出路径
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJ_OUT_DIR_DIFF_BUILD_TYPE}) # 共享库Target文件的输出路径
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJ_OUT_DIR_DIFF_BUILD_TYPE}) # 静态库Target文件的输出路径
 set(PROJ_DLL_OUTPUT_DIR ${PROJ_OUT_DIR_DIFF_BUILD_TYPE}) # DLL文件移动目标路径
+
+# # 预定义宏
+add_definitions(-DUNICODE -D_UNICODE)
+add_definitions(-DEIGEN_MPL2_ONLY) # use eigen with only MPL2 lincense. Todo: split layer
+add_definitions(-DFMT_HEADER_ONLY) # fmt header-only macro
+add_definitions(-DPROJ_ROOT_PATH="${CMAKE_CURRENT_SOURCE_DIR}")
+add_definitions(-DPROJ_LOG_DIR="${CMAKE_CURRENT_SOURCE_DIR}/log")
+add_definitions(-DPROJ_DATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/data")
+add_definitions(-DPROJ_CONFIG_DIR="${CMAKE_CURRENT_SOURCE_DIR}/config")
+add_definitions(-DPROJ_OUT_DIR="$<$<CONFIG:Debug>:${PROJ_OUT_DIR}/Debug>$<$<CONFIG:Release>:${PROJ_OUT_DIR}/Release>$<$<CONFIG:RelWithDebInfo>:${PROJ_OUT_DIR}/RelWithDebInfo>$<$<CONFIG:MinSizeRel>:${PROJ_OUT_DIR}/MinSizeRel>")
 
 # # 框架项目选项
 option(PROJ_BUILD_APP "Whether to build the module: application" ON)
 option(PROJ_BUILD_TESTS "Whether to build the module: test" ON)
 option(PROJ_BUILD_BENCHS "Whether to build the module: benchmark" ON)
 option(PROJ_BUILD_FORMAT "Whether to build the format tool" ON)
-option(PROJ_BUILD_INSTALL "Generate the install target" ON)
+option(PROJ_BUILD_INSTALL "Generate the install target" OFF)  # todo: yaml-cpp will result INSTALL configure error
 option(PROJ_BUILD_SAMPLES "Whether to build the module: sample" ON) # sample option
 option(PROJ_BUILD_DOXYGEN "Whether to build the module: DocGenerate" ON) # doxygen编译开关
+
+# ---------------------------------------------------------------------------------------
+# 3rdparty
+# ---------------------------------------------------------------------------------------
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/3rdparty/opencv.cmake")
+find_opencv()
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/3rdparty/yaml-cpp.cmake")
+find_yamlcpp()
 
 # ---------------------------------------------------------------------------------------
 # Subdirectory
@@ -125,6 +123,9 @@ else()
 
     # 设置目标引用
     target_include_directories(${PROJ_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${PROJ_COMMON_INCLUDE_DIRS}>" "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+
+    target_link_opencv(${PROJ_TARGET_NAME}) # 3rdparty: opencv
+    target_link_libraries(${PROJ_TARGET_NAME} PUBLIC yaml-cpp::yaml-cpp) # 3rdparty: yaml-cpp
 endif()
 
 # ---------------------------------------------------------------------------------------
