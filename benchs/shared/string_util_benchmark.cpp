@@ -9,8 +9,11 @@
  * @par todo:
  * @par history: 
  *********************************************************************/
-#include "benchmark/benchmark.h"
-#include "shared/string_util.h"
+#include <benchmark/benchmark.h>
+
+#include "shared/string_util.hpp"
+
+using namespace conrobo;
 
 class StringUtilFixture : public benchmark::Fixture {
 public:

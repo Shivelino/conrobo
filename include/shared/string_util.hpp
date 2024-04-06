@@ -5,13 +5,17 @@
  * @author  Shivelino
  * @date    2024.4.6
  * @version 
- * @par Copyright(c): Conrobo Team
+ * @par Copyright(c): Shivelino Authorized
  * @par todo:
  * @par history: 
  *********************************************************************/
 #pragma once
+#include <algorithm>
 #include <string>
 
+#include "base.h"
+
+namespace conrobo {
 /**
  * @brief   字符串转小写.
  * @details
@@ -20,7 +24,11 @@
  * @par todo:
  * @par history:
  */
-std::string string_lower(const std::string& s);
+ALWAYS_INLINE_FUNCTION std::string string_lower(const std::string& s) {
+    std::string ret = s;
+    std::transform(ret.begin(), ret.end(), ret.begin(), ::tolower);
+    return ret;
+}
 
 /**
  * @brief   字符串转大写.
@@ -30,4 +38,9 @@ std::string string_lower(const std::string& s);
  * @par todo:
  * @par history:
  */
-std::string string_upper(const std::string& s);
+ALWAYS_INLINE_FUNCTION std::string string_upper(const std::string& s) {
+    std::string ret = s;
+    std::transform(ret.begin(), ret.end(), ret.begin(), ::toupper);
+    return ret;
+}
+}  // namespace conrobo

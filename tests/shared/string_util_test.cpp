@@ -9,12 +9,14 @@
  * @par todo:
  * @par history: 
  *********************************************************************/
-#include "shared/string_util.h"
-
 #include <fstream>
 #include <iostream>
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
+
+#include "shared/string_util.hpp"
+
+using namespace conrobo;
 
 // =============================================================================================
 // #define DEBUG_LOG

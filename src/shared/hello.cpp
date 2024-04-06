@@ -1,5 +1,5 @@
 ﻿/*********************************************************************
- * @file    string_util_sample.cpp    
+ * @file    hello.cpp    
  * @brief   
  * @details  
  * @author  Shivelino
@@ -11,14 +11,6 @@
  *********************************************************************/
 #include <iostream>
 
-#include "shared/string_util.hpp"
-
-using namespace conrobo;
-
-int main(int argc, char** argv) {
-    // 转大写
-    std::cout << string_upper("HelloWorld2023!") << std::endl;
-    // 转小写
-    std::cout << string_lower("HelloWorld2023!") << std::endl;
-    return 0;
+void hello() {
+    std::cout << "hello\n";
 }

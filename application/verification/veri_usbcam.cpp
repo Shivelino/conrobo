@@ -1,5 +1,5 @@
 ﻿/*********************************************************************
- * @file    string_util_sample.cpp    
+ * @file    veri_usbcam.cpp    
  * @brief   
  * @details  
  * @author  Shivelino
@@ -11,14 +11,16 @@
  *********************************************************************/
 #include <iostream>
 
-#include "shared/string_util.hpp"
+#include "sensor/video/cam.hpp"
 
-using namespace conrobo;
+int main() {
+    using namespace conrobo;
+    CamUSB cam(CamUSB::Config(0));
+    //cam.display();
 
-int main(int argc, char** argv) {
-    // 转大写
-    std::cout << string_upper("HelloWorld2023!") << std::endl;
-    // 转小写
-    std::cout << string_lower("HelloWorld2023!") << std::endl;
+    cv::Mat frame;
+    cv::imshow("cam live", frame);
+    int key = cv::waitKey(0);
+
     return 0;
 }

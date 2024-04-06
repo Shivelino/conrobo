@@ -124,7 +124,8 @@ else()
     # 设置目标引用
     target_include_directories(${PROJ_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${PROJ_COMMON_INCLUDE_DIRS}>" "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-    target_link_opencv(${PROJ_TARGET_NAME}) # 3rdparty: opencv
+    target_include_opencv(${PROJ_TARGET_NAME})
+    target_link_opencv(${PROJ_TARGET_NAME} ${PROJ_DLL_OUTPUT_DIR}) # 3rdparty: opencv
     target_link_libraries(${PROJ_TARGET_NAME} PUBLIC yaml-cpp::yaml-cpp) # 3rdparty: yaml-cpp
 endif()
 
