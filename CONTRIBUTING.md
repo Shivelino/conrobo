@@ -36,4 +36,7 @@ git clone [url]
 
 
 ## 4，Todo
-[ ] 3rdparty include
+- [x] 3rdparty include
+- [ ] sensor
+  - [ ] cam/video
+  - [ ] image
